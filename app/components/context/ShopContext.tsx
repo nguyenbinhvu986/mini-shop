@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 import { Product } from "../../types/products/types-products";
 
 type Filters = {
@@ -9,11 +16,15 @@ type Filters = {
   minRating: number | null;
 };
 
-export type CartItem = Pick<Product, "id" | "title" | "thumbnail"> & {
+export type CartItem = Pick<
+  Product,
+  "id" | "title" | "thumbnail" | "returnPolicy"
+> & {
   price: number;
   quantity: number;
   minQuantity: number;
   stock: number;
+  warranty: string;
 };
 
 type ShopContextType = {
@@ -25,6 +36,8 @@ type ShopContextType = {
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: CartItem["id"]) => void;
   updateQuantity: (id: CartItem["id"], quantity: number) => void;
+  selected: number[];
+  setSelected: Dispatch<SetStateAction<number[]>>;
 };
 
 const ShopContext = createContext<ShopContextType | null>(null);
@@ -37,6 +50,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   });
   const [page, setPage] = useState(1);
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [selected, setSelected] = useState<number[]>([]);
 
   const addToCart = (item: CartItem) =>
     setCart((prev) =>
@@ -67,6 +81,8 @@ export function ShopProvider({ children }: { children: ReactNode }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        selected,
+        setSelected,
       }}
     >
       {children}

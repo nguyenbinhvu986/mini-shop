@@ -17,6 +17,8 @@ export default function ProductCard({
   stock,
   availabilityStatus,
   minimumOrderQuantity,
+  warrantyInformation,
+  returnPolicy,
 }: Product) {
   const { addToCart } = useShop();
   const salePrice = price * (1 - discountPercentage / 100);
@@ -76,6 +78,8 @@ export default function ProductCard({
                 quantity: minimumOrderQuantity,
                 minQuantity: minimumOrderQuantity,
                 stock,
+                warranty: warrantyInformation,
+                returnPolicy,
               })
             }
             disabled={!inStock}

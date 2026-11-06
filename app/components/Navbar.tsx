@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { Heart, Search, Truck } from "lucide-react";
+import { Search, Truck } from "lucide-react";
 import SearchBar from "./Searchbar";
-import CartIcon from "../cart/Carticon";
+import CartIcon from "../cart/components/cart/Carticon";
 
 export default function Navbar() {
   return (
@@ -25,21 +24,14 @@ export default function Navbar() {
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-slate-700 xl:flex">
-            <Link href="/">Sản phẩm</Link>
-            <Link href="/sales">Khuyến mãi</Link>
-            <Link href="/support">Hỗ trợ</Link>
+            <Link href="/"></Link>
           </nav>
-          <Suspense
-            fallback={<div className="hidden flex-1 md:block md:max-w-sm" />}
-          >
+          <Suspense fallback={<div className=" flex-1 md:block md:max-w-sm" />}>
             <SearchBar />
           </Suspense>
           <div className="flex items-center gap-6 text-slate-800">
             <Link href="/search" className="md:hidden">
               <Search size={24} />
-            </Link>
-            <Link href="/wishlist">
-              <Heart size={24} />
             </Link>
             <CartIcon />
           </div>

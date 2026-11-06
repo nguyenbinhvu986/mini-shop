@@ -9,6 +9,8 @@ export type Product = {
   stock: number;
   brand?: string;
   availabilityStatus: string;
+  warrantyInformation: string;
+  returnPolicy: string;
   thumbnail: string;
   images: string[];
   minimumOrderQuantity: number;
