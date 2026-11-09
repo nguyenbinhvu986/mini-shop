@@ -16,11 +16,11 @@ export default function Navbar() {
       <div className="bg-slate-50">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-lg font-bold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-lg font-bold text-white shadow-[-3px_3px_0_#1e3a8a]">
               N
             </span>
-            <span className="text-lg font-bold text-slate-900">
-              Nova<span className="text-blue-600">Store</span>
+            <span className="text-lg font-bold text-slate-900 [text-shadow:-1px_1px_0_#93c5fd,-2px_2px_0_#93c5fd,-3px_3px_0_#93c5fd,-4px_4px_0_#93c5fd]">
+              Nova<span className="text-blue-600"> Store</span>
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-slate-700 xl:flex">

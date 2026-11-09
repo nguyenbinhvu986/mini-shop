@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -19,11 +19,16 @@ import CheckoutForm, {
   CheckoutErrors,
   CheckoutValues,
   EMPTY_CHECKOUT,
-  SHIPPING_FEES,
   validateCheckout,
 } from "./CheckoutForm";
 
 const formatPrice = (value: number) => `$${value.toFixed(2)}`;
+
+const PROMO_CODE = "JUNIOR10";
+const PROMO_RATE = 0.1;
+const PROMO_MAX = 20;
+const SHIPPING_FEE = 5;
+const FREE_SHIPPING_FROM = 100;
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -36,12 +41,18 @@ export default function PaymentPage() {
   );
 
   const items = cart.filter(({ id }) => selected.includes(id));
+
+  useEffect(() => {
+    if (items.length > 0) setPlaced(null);
+  }, [items.length]);
+
   const subtotal = items.reduce(
     (sum, { price, quantity }) => sum + price * quantity,
     0,
   );
-  const shippingFee = SHIPPING_FEES[values.shipping];
-  const total = subtotal + shippingFee;
+  const discount = Math.min(subtotal * PROMO_RATE, PROMO_MAX);
+  const shippingFee = subtotal < FREE_SHIPPING_FROM ? SHIPPING_FEE : 0;
+  const total = subtotal - discount + shippingFee;
   const hasErrors = Object.values(errors).some(Boolean);
 
   const goBack = () =>
@@ -205,11 +216,22 @@ export default function PaymentPage() {
             </span>
           </div>
 
-          <dl className="mt-4 space-y-3 text-sm">
+          <p className="mt-4 text-xs font-semibold text-green-700">
+            Đã tự động áp dụng mã {PROMO_CODE}: giảm {PROMO_RATE * 100}% tiền
+            hàng, tối đa {formatPrice(PROMO_MAX)}
+          </p>
+
+          <dl className="mt-4 space-y-3 border-t border-slate-100 pt-4 text-sm">
             <div className="flex items-center justify-between">
               <dt className="text-slate-600">Tạm tính:</dt>
               <dd className="font-bold text-slate-900">
                 {formatPrice(subtotal)}
+              </dd>
+            </div>
+            <div className="flex items-center justify-between">
+              <dt className="text-slate-600">Giảm giá:</dt>
+              <dd className="font-bold text-green-700">
+                -{formatPrice(discount)}
               </dd>
             </div>
             <div className="flex items-center justify-between">
@@ -240,7 +262,7 @@ export default function PaymentPage() {
             onClick={placeOrder}
             className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl bg-blue-700 px-4 py-4 text-center text-sm font-bold text-white"
           >
-            Đặt hàng ngay (Thanh toán mô phỏng)
+            Đặt hàng ngay
             <ArrowRight size={18} className="shrink-0" />
           </button>
           {hasErrors && (

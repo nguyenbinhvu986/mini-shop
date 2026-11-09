@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { formatPrice } from "./CartHelpers";
+import { Tag } from "lucide-react";
 
 type CartSummaryBarProps = {
   totalCount: number;
@@ -21,6 +22,10 @@ export default function CartSummaryBar({
   return (
     <div className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+        <div className="fixed inset-x-0 bottom-20 z-10 mx-auto flex max-w-7xl items-center gap-2 bg-green-50 px-6 py-2 text-sm font-semibold text-green-800">
+          <Tag size={16} className="shrink-0" />
+          Giảm 10%, tối đa $20 khi thanh toán
+        </div>
         <label className="flex cursor-pointer items-center gap-3 text-sm text-slate-700">
           <input
             type="checkbox"

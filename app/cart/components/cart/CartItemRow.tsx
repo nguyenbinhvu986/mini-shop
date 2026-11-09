@@ -1,6 +1,7 @@
 import { CartItem } from "../../../components/context/ShopContext";
 import QuantityControl from "../../QuantityControl";
 import { CART_COLUMNS, formatPrice } from "./CartHelpers";
+import { Trash } from "lucide-react";
 
 type CartItemRowProps = {
   item: CartItem;
@@ -64,8 +65,11 @@ export default function CartItemRow({
         {formatPrice(price)}
       </p>
       <div className="hidden justify-center md:flex">{control}</div>
-      <button onClick={onRemove} className="text-sm font-semibold text-red-600">
-        Xóa
+      <button
+        onClick={onRemove}
+        className="flex h-full w-full items-center justify-center text-slate-500 hover:text-red-600"
+      >
+        <Trash size={16} />
       </button>
     </li>
   );

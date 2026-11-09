@@ -1,3 +1,11 @@
+export type Review = {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
+};
+
 export type Product = {
   id: number;
   title: string;
@@ -8,9 +16,12 @@ export type Product = {
   rating: number;
   stock: number;
   brand?: string;
+  sku: string;
   availabilityStatus: string;
   warrantyInformation: string;
+  shippingInformation: string;
   returnPolicy: string;
+  reviews: Review[];
   thumbnail: string;
   images: string[];
   minimumOrderQuantity: number;

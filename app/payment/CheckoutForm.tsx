@@ -9,7 +9,6 @@ export type CheckoutValues = {
   district: string;
   address: string;
   note: string;
-  shipping: "standard" | "express";
   payment: "qr" | "card" | "cod";
 };
 
@@ -23,11 +22,8 @@ export const EMPTY_CHECKOUT: CheckoutValues = {
   district: "",
   address: "",
   note: "",
-  shipping: "standard",
   payment: "qr",
 };
-
-export const SHIPPING_FEES = { standard: 0, express: 5 } as const;
 
 const LOCATIONS: Record<string, string[]> = {
   "TP. Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 7", "Thủ Đức"],
@@ -250,124 +246,76 @@ export default function CheckoutForm({
           </div>
         </div>
       </Section>
-
-      <Section title="Phương thức vận chuyển">
-        <div className="grid gap-4 md:grid-cols-2">
-          <OptionCard
-            name="shipping"
-            checked={values.shipping === "standard"}
-            onSelect={() => onChange("shipping", "standard")}
-          >
-            <div className="flex items-center justify-between gap-2">
-              <span className="font-semibold text-slate-900">
-                Giao hàng tiêu chuẩn
-              </span>
-              <span className="text-sm font-bold text-green-700">Miễn phí</span>
+      <div className="space-y-3">
+        <OptionCard
+          name="payment"
+          checked={values.payment === "qr"}
+          onSelect={() => onChange("payment", "qr")}
+        >
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-blue-700">
+              <QrCode size={20} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold text-slate-900">
+                Chuyển khoản VietQR / MoMo / VNPay
+              </p>
+              <p className="text-xs text-slate-600">
+                Tạo mã QR thử, quét thanh toán qua mọi app ngân hàng
+              </p>
             </div>
-            <p className="mt-1 text-xs text-slate-600">
-              Dự kiến nhận hàng trong 1-2 ngày làm việc.
-            </p>
-          </OptionCard>
-          <OptionCard
-            name="shipping"
-            checked={values.shipping === "express"}
-            onSelect={() => onChange("shipping", "express")}
-          >
-            <div className="flex items-center justify-between gap-2">
-              <span className="font-semibold text-slate-900">
-                Hỏa tốc nội thành 2H
-              </span>
-              <span className="text-sm font-bold text-slate-900">
-                +${SHIPPING_FEES.express.toFixed(2)}
-              </span>
+            <span className="shrink-0 rounded bg-green-200 px-2 py-1 text-xs font-bold text-green-800">
+              Khuyên dùng
+            </span>
+          </div>
+        </OptionCard>
+        <OptionCard
+          name="payment"
+          checked={values.payment === "card"}
+          onSelect={() => onChange("payment", "card")}
+        >
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-blue-700">
+              <CreditCard size={20} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold text-slate-900">
+                Thẻ quốc tế (Visa, Mastercard, JCB)
+              </p>
+              <p className="text-xs text-slate-600">
+                Cổng thanh toán mã hóa an toàn, không lưu thông tin thẻ
+              </p>
             </div>
-            <p className="mt-1 text-xs text-slate-600">
-              Bàn giao shipper công nghệ tức thì. Áp dụng khu vực nội thành.
-            </p>
-          </OptionCard>
-        </div>
-      </Section>
-
-      <Section
-        title="Phương thức thanh toán"
-        aside={
-          <span className="flex items-center gap-1 text-xs font-bold text-green-700">
-            <Lock size={14} />
-            Bảo mật chuẩn PCI DSS
-          </span>
-        }
-      >
-        <div className="space-y-3">
-          <OptionCard
-            name="payment"
-            checked={values.payment === "qr"}
-            onSelect={() => onChange("payment", "qr")}
-          >
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-blue-700">
-                <QrCode size={20} />
+            <span className="hidden shrink-0 gap-1 sm:flex">
+              <span className="rounded bg-indigo-100 px-2 py-1 text-xs font-bold text-slate-600">
+                VISA
               </span>
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold text-slate-900">
-                  Chuyển khoản VietQR / MoMo / VNPay
-                </p>
-                <p className="text-xs text-slate-600">
-                  Tạo mã QR thử, quét thanh toán qua mọi app ngân hàng
-                </p>
-              </div>
-              <span className="shrink-0 rounded bg-green-200 px-2 py-1 text-xs font-bold text-green-800">
-                Khuyên dùng
+              <span className="rounded bg-indigo-100 px-2 py-1 text-xs font-bold text-slate-600">
+                MC
               </span>
+            </span>
+          </div>
+        </OptionCard>
+        <OptionCard
+          name="payment"
+          checked={values.payment === "cod"}
+          onSelect={() => onChange("payment", "cod")}
+        >
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-blue-700">
+              <Banknote size={20} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold text-slate-900">
+                Thanh toán khi nhận hàng (COD)
+              </p>
+              <p className="text-xs text-slate-600">
+                Kiểm tra kiện hàng trước khi thanh toán tiền mặt cho shipper
+              </p>
             </div>
-          </OptionCard>
-          <OptionCard
-            name="payment"
-            checked={values.payment === "card"}
-            onSelect={() => onChange("payment", "card")}
-          >
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-blue-700">
-                <CreditCard size={20} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold text-slate-900">
-                  Thẻ quốc tế (Visa, Mastercard, JCB)
-                </p>
-                <p className="text-xs text-slate-600">
-                  Cổng thanh toán mã hóa an toàn, không lưu thông tin thẻ
-                </p>
-              </div>
-              <span className="hidden shrink-0 gap-1 sm:flex">
-                <span className="rounded bg-indigo-100 px-2 py-1 text-xs font-bold text-slate-600">
-                  VISA
-                </span>
-                <span className="rounded bg-indigo-100 px-2 py-1 text-xs font-bold text-slate-600">
-                  MC
-                </span>
-              </span>
-            </div>
-          </OptionCard>
-          <OptionCard
-            name="payment"
-            checked={values.payment === "cod"}
-            onSelect={() => onChange("payment", "cod")}
-          >
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-blue-700">
-                <Banknote size={20} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold text-slate-900">
-                  Thanh toán khi nhận hàng (COD)
-                </p>
-                <p className="text-xs text-slate-600">
-                  Kiểm tra kiện hàng trước khi thanh toán tiền mặt cho shipper
-                </p>
-              </div>
-            </div>
-          </OptionCard>
-        </div>
-      </Section>
+          </div>
+        </OptionCard>
+      </div>
     </>
   );
 }

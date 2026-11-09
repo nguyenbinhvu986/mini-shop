@@ -16,7 +16,6 @@ export default function ProductCard({
   discountPercentage,
   stock,
   availabilityStatus,
-  minimumOrderQuantity,
   warrantyInformation,
   returnPolicy,
 }: Product) {
@@ -27,7 +26,7 @@ export default function ProductCard({
   const lowStock = availabilityStatus === "Low Stock";
 
   return (
-    <article className="flex h-[380px] flex-col rounded-2xl bg-white p-3 shadow-sm">
+    <article className="relative flex h-[380px] flex-col rounded-2xl bg-white p-3 shadow-sm">
       <div className="relative h-44 shrink-0 overflow-hidden rounded-xl bg-slate-100">
         <img
           src={thumbnail}
@@ -75,22 +74,22 @@ export default function ProductCard({
                 title,
                 thumbnail,
                 price: salePrice,
-                quantity: minimumOrderQuantity,
-                minQuantity: minimumOrderQuantity,
+                quantity: 1,
+                minQuantity: 1,
                 stock,
                 warranty: warrantyInformation,
                 returnPolicy,
               })
             }
             disabled={!inStock}
-            className="flex flex-1 items-center justify-center gap-1 rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="relative z-10 flex flex-1 items-center justify-center gap-1 rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
             <ShoppingCart size={16} />
             Thêm giỏ
           </button>
           <Link
             href={`/products/${id}`}
-            className="flex-1 rounded-lg bg-indigo-50 py-2.5 text-center text-sm font-semibold text-slate-800"
+            className="flex-1 rounded-lg bg-indigo-50 py-2.5 text-center text-sm font-semibold text-slate-800 after:absolute after:inset-0 after:rounded-2xl"
           >
             Chi tiết
           </Link>
