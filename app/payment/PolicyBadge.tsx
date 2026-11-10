@@ -22,20 +22,14 @@ function parseWarranty(text = ""): { months: number; label: string } {
   if (t.includes("week")) return { months: n / 4, label: `Bảo hành ${n} tuần` };
   return { months: 0, label: "Không bảo hành" };
 }
-
-// "30 days return policy", "No return policy"
 function parseReturn(text = ""): { days: number; label: string } {
   const days = firstNumber(text);
   return days > 0
     ? { days, label: `Đổi trả trong ${days} ngày` }
     : { days: 0, label: "Không đổi trả" };
 }
-
-// Dưới 1 tháng: đỏ | 1 đến dưới 12 tháng: vàng | từ 12 tháng: xanh
 const warrantyTone = (months: number): Tone =>
   months >= 12 ? "green" : months >= 1 ? "yellow" : "red";
-
-// Dưới 7 ngày: đỏ | 7 đến dưới 30 ngày: vàng | từ 30 ngày: xanh
 const returnTone = (days: number): Tone =>
   days >= 30 ? "green" : days >= 7 ? "yellow" : "red";
 

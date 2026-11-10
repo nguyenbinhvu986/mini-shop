@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { Search, Truck } from "lucide-react";
+import { ClipboardList, Search, Truck } from "lucide-react";
 import SearchBar from "./Searchbar";
 import CartIcon from "../cart/components/cart/Carticon";
 
@@ -23,8 +23,8 @@ export default function Navbar() {
               Nova<span className="text-blue-600"> Store</span>
             </span>
           </Link>
-          <nav className="hidden items-center gap-8 text-slate-700 xl:flex">
-            <Link href="/"></Link>
+          <nav className="mr-auto hidden text-slate-700 xl:flex">
+            <Link href="/">Sản phẩm</Link>
           </nav>
           <Suspense fallback={<div className=" flex-1 md:block md:max-w-sm" />}>
             <SearchBar />
@@ -32,6 +32,9 @@ export default function Navbar() {
           <div className="flex items-center gap-6 text-slate-800">
             <Link href="/search" className="md:hidden">
               <Search size={24} />
+            </Link>
+            <Link href="/orders">
+              <ClipboardList size={24} />
             </Link>
             <CartIcon />
           </div>

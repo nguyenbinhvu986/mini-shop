@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ArrowRight,
-  Check,
   ChevronLeft,
   Headphones,
   Lock,
@@ -13,14 +12,17 @@ import {
   ShieldCheck,
   ShoppingBag,
 } from "lucide-react";
-import { useShop } from "../components/context/ShopContext";
+import { Order, useShop } from "../components/context/ShopContext";
+import { useLocalStorage } from "../components/Hooks/useLocalStorage";
 import PolicyBadges from "./PolicyBadge";
-import CheckoutForm, {
+import OrderSuccess from "./OrderSuccess";
+import CheckoutForm from "./Form/CheckoutForm";
+import {
   CheckoutErrors,
   CheckoutValues,
   EMPTY_CHECKOUT,
   validateCheckout,
-} from "./CheckoutForm";
+} from "./Form/CheckoutSchema";
 
 const formatPrice = (value: number) => `$${value.toFixed(2)}`;
 
@@ -32,13 +34,15 @@ const FREE_SHIPPING_FROM = 100;
 
 export default function PaymentPage() {
   const router = useRouter();
-  const { cart, selected, setSelected, removeFromCart } = useShop();
+  const { ready, cart, selected, setSelected, removeFromCart, addOrder } =
+    useShop();
 
-  const [values, setValues] = useState<CheckoutValues>(EMPTY_CHECKOUT);
-  const [errors, setErrors] = useState<CheckoutErrors>({});
-  const [placed, setPlaced] = useState<{ count: number; total: number } | null>(
-    null,
+  const [values, setValues] = useLocalStorage<CheckoutValues>(
+    "shop-checkout",
+    EMPTY_CHECKOUT,
   );
+  const [errors, setErrors] = useState<CheckoutErrors>({});
+  const [placed, setPlaced] = useState<Order | null>(null);
 
   const items = cart.filter(({ id }) => selected.includes(id));
 
@@ -71,35 +75,27 @@ export default function PaymentPage() {
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
-    setPlaced({ count: items.length, total });
+    const { name, phone, address, district, province, payment } = values;
+    const order: Order = {
+      id: `NOVA-${crypto.randomUUID().slice(0, 8).toUpperCase()}`,
+      items,
+      subtotal,
+      discount,
+      shippingFee,
+      total,
+      customer: { name, phone, address, district, province, payment },
+      placedAt: new Date().toISOString(),
+    };
+
+    setPlaced(order);
+    addOrder(order);
     items.forEach(({ id }) => removeFromCart(id));
     setSelected([]);
   };
 
-  if (placed) {
-    return (
-      <div className="mx-auto max-w-7xl px-6 py-6">
-        <div className="flex min-h-80 flex-col items-center justify-center gap-3 rounded-2xl bg-white p-10 text-center shadow-sm">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-700">
-            <Check size={32} />
-          </span>
-          <h1 className="text-lg font-bold text-slate-900">
-            Đặt hàng thành công
-          </h1>
-          <p className="text-sm text-slate-600">
-            {placed.count} sản phẩm · Tổng thanh toán{" "}
-            <b className="text-slate-900">{formatPrice(placed.total)}</b>
-          </p>
-          <Link
-            href="/"
-            className="rounded-xl bg-blue-700 px-6 py-3 text-sm font-bold text-white"
-          >
-            Tiếp tục mua sắm
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  if (!ready) return null;
+
+  if (placed) return <OrderSuccess order={placed} />;
 
   if (items.length === 0) {
     return (

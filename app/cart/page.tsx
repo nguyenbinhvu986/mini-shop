@@ -12,13 +12,15 @@ import { useCartSelection } from "./components/Hooks/UseCartSelection";
 
 export default function CartPage() {
   const router = useRouter();
-  const { cart, removeFromCart } = useShop();
+  const { ready, cart, removeFromCart } = useShop();
   const { selected, toggle, unselect, allSelected, toggleAll, chosen, total } =
     useCartSelection(cart);
   const { warn, decrease, increase, commit } = useCartQuantity();
 
   const goBack = () =>
     window.history.length > 1 ? router.back() : router.push("/");
+
+  if (!ready) return null;
 
   if (cart.length === 0) return <EmptyCart />;
 
