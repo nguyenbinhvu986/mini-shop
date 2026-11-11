@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ClipboardList, Search, Truck } from "lucide-react";
 import SearchBar from "./Searchbar";
-import CartIcon from "../cart/components/cart/Carticon";
+import CartIcon from "./Carticon";
 
 export default function Navbar() {
   return (

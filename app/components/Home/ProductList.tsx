@@ -2,9 +2,9 @@
 
 import { ChevronDown, SearchX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useDebounce } from "./Hooks/useDebounce";
-import { Sort, useShop } from "./context/ShopContext";
-import { Product } from "../types/products/types-products";
+import { useDebounce } from "../Hooks/useDebounce";
+import { Sort, useShop } from "../context/ShopContext";
+import { Product } from "../../types/products/types-products";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 import ProductSkeleton from "./skeletonLoading";

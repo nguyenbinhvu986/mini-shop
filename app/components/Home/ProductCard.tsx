@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ShoppingCart, Star } from "lucide-react";
-import { Product } from "../types/products/types-products";
-import { useShop } from "./context/ShopContext";
+import { Product } from "../../types/products/types-products";
+import { useShop } from "../context/ShopContext";
 
 const formatPrice = (value: number) => `$${value.toFixed(2)}`;
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { SlidersHorizontal, Star } from "lucide-react";
-import { useShop } from "./context/ShopContext";
+import { useShop } from "../context/ShopContext";
 
 type FilterProps = {
   categories: { slug: string; count: number }[];

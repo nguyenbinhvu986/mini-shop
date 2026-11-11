@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ClipboardList } from "lucide-react";
 import { useShop } from "../components/context/ShopContext";
-import OrderDetails from "../payment/OrderDetails";
+import OrderDetails from "../components/OrderDetails";
 
 export default function OrdersPage() {
   const { ready, orders } = useShop();

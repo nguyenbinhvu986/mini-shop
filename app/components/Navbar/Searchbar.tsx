@@ -3,7 +3,7 @@
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useShop } from "./context/ShopContext";
+import { useShop } from "../context/ShopContext";
 
 export default function SearchBar() {
   const router = useRouter();
