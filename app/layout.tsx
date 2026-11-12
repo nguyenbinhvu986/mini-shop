@@ -1,5 +1,5 @@
-import Navbar from "./components/Navbar/Navbar";
-import { ShopProvider } from "./components/context/ShopContext";
+import Navbar from "../components/Navbar/Navbar";
+import { ShopProvider } from "../components/context/ShopContext";
 import "./globals.css";
 
 export default function RootLayout({

@@ -3,23 +3,28 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
-import { Order, useShop } from "../components/context/ShopContext";
-import { useLocalStorage } from "../components/Hooks/useLocalStorage";
-import { calcOrder } from "./components/Order/SaleCode";
-import CheckoutForm from "./components/Form/CheckoutForm";
+import { Order, useShop } from "../../components/context/ShopContext";
+import { useLocalStorage } from "../../components/Hooks/useLocalStorage";
+import { calcOrder } from "../../components/payment/Order/SaleCode";
+import CheckoutForm from "../../components/payment/Form/CheckoutForm";
 import {
   CheckoutErrors,
   CheckoutValues,
   EMPTY_CHECKOUT,
   validateCheckout,
-} from "./components/Form/CheckoutSchema";
-import EmptyCheckout from "./components/Order/EmptyCheckout";
-import OrderItemsSection from "./components/Order/OrderItemsSection";
-import OrderSuccess from "./components/Order/OrderSuccess";
-import OrderSummary from "./components/Order/OrderSummary";
+} from "../../components/payment/Form/CheckoutSchema";
+import EmptyCheckout from "../../components/payment/Order/EmptyCheckout";
+import OrderItemsSection from "../../components/payment/Order/OrderItemsSection";
+import OrderSuccess from "../../components/payment/Order/OrderSuccess";
+import OrderSummary from "../../components/payment/Order/OrderSummary";
 
-const createOrderCode = () =>
-  `NOVA-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+const createOrderCode = () => {
+  const bytes = crypto.getRandomValues(new Uint8Array(4));
+  const hex = Array.from(bytes, (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+  return `NOVA-${hex.toUpperCase()}`;
+};
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -32,11 +37,15 @@ export default function PaymentPage() {
   );
   const [errors, setErrors] = useState<CheckoutErrors>({});
   const [placed, setPlaced] = useState<Order | null>(null);
-  const [orderCode, setOrderCode] = useState(createOrderCode);
+  const [orderCode, setOrderCode] = useState("");
 
   const items = cart.filter(({ id }) => selected.includes(id));
   const { subtotal, discount, shippingFee, total } = calcOrder(items);
   const hasErrors = Object.values(errors).some(Boolean);
+
+  useEffect(() => {
+    setOrderCode(createOrderCode());
+  }, []);
 
   useEffect(() => {
     if (items.length > 0) setPlaced(null);

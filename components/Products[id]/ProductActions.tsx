@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Minus, Plus, ShoppingCart, Zap } from "lucide-react";
-import { CartItem, useShop } from "../../components/context/ShopContext";
+import { CartItem, useShop } from "../context/ShopContext";
 
 export default function ProductActions({
   item,

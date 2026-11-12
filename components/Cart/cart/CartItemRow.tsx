@@ -1,4 +1,4 @@
-import { CartItem } from "../../../components/context/ShopContext";
+import { CartItem } from "../../context/ShopContext";
 import QuantityControl from "../QuantityControl";
 import { CART_COLUMNS, formatPrice } from "./CartHelpers";
 import { Trash } from "lucide-react";

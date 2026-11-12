@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Check, ClipboardList, ShoppingBag } from "lucide-react";
-import { Order } from "../../../components/context/ShopContext";
-import OrderDetails from "../../../components/OrderDetails";
+import { Order } from "../../context/ShopContext";
+import OrderDetails from "../../common/OrderDetails";
 
 export default function OrderSuccess({ order }: { order: Order }) {
   return (

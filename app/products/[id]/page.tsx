@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { RefreshCw, ShieldCheck, Star, Truck, ChevronLeft } from "lucide-react";
-import { getProduct } from "../../components/Hooks/Fetch";
-import ProductActions from "./ProductActions";
+import { getProduct } from "../../../components/Hooks/Fetch";
+import ProductActions from "../../../components/Products[id]/ProductActions";
 import Link from "next/link";
-
+export const instant = false;
 const formatPrice = (value: number) => `$${value.toFixed(2)}`;
 
 export default async function ProductDetailPage({

@@ -1,4 +1,4 @@
-import { CartItem, useShop } from "../../../components/context/ShopContext";
+import { CartItem, useShop } from "../../context/ShopContext";
 
 export function useCartSelection(cart: CartItem[]) {
   const { selected, setSelected } = useShop();

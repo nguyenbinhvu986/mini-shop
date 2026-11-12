@@ -1,6 +1,7 @@
 import { Banknote, CreditCard, Lock, QrCode } from "lucide-react";
 import { CheckoutSectionProps } from "./CheckoutSchema";
-import { OptionCard, Section } from "./FormParts";
+import { Section } from "./FormSection";
+import { OptionCard } from "./FormOptionCard";
 
 export default function PaymentMethodSection({
   values,

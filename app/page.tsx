@@ -1,8 +1,8 @@
-import Filter from "./components/Home/filter";
-import ProductList from "./components/Home/ProductList";
-import { getProducts } from "./components/Hooks/Fetch";
+import Filter from "../components/Home/filter";
+import ProductList from "../components/Home/ProductList";
+import { getProducts } from "../components/Hooks/Fetch";
 import { Suspense } from "react";
-import ProductSkeleton from "./components/Home/skeletonLoading";
+import ProductSkeleton from "../components/Home/skeletonLoading";
 
 export default async function Home() {
   const products = await getProducts();

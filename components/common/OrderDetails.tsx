@@ -1,5 +1,5 @@
 import { CalendarDays, MapPin, Wallet } from "lucide-react";
-import { Order } from "./context/ShopContext";
+import { Order } from "../context/ShopContext";
 
 const formatPrice = (value: number) => `$${value.toFixed(2)}`;
 

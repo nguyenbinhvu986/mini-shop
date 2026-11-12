@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ClipboardList } from "lucide-react";
-import { useShop } from "../components/context/ShopContext";
-import OrderDetails from "../components/OrderDetails";
+import { useShop } from "../../components/context/ShopContext";
+import OrderDetails from "../../components/common/OrderDetails";
 
 export default function OrdersPage() {
   const { ready, orders } = useShop();

@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
-import { useShop } from "../components/context/ShopContext";
-import CartItemRow from "./components/cart/CartItemRow";
-import CartSummaryBar from "./components/cart/Cartsummarybar";
-import EmptyCart from "./components/cart/EmptyCart";
-import { CART_COLUMNS } from "./components/cart/CartHelpers";
-import { useCartQuantity } from "./components/Hooks/UseCartQuantity";
-import { useCartSelection } from "./components/Hooks/UseCartSelection";
+import { useShop } from "../../components/context/ShopContext";
+import CartItemRow from "../../components/Cart/cart/CartItemRow";
+import CartSummaryBar from "../../components/Cart/cart/Cartsummarybar";
+import EmptyCart from "../../components/Cart/cart/EmptyCart";
+import { CART_COLUMNS } from "../../components/Cart/cart/CartHelpers";
+import { useCartQuantity } from "../../components/Cart/Hooks/UseCartQuantity";
+import { useCartSelection } from "../../components/Cart/Hooks/UseCartSelection";
 
 export default function CartPage() {
   const router = useRouter();

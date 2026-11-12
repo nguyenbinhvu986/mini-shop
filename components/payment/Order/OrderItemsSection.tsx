@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { CartItem } from "../../../components/context/ShopContext";
+import { CartItem } from "../../context/ShopContext";
 import { formatPrice } from "./SaleCode";
 import PolicyBadges from "./PolicyBadge";
 
@@ -19,9 +19,11 @@ export default function OrderItemsSection({
           {items.length} món
         </span>
       </div>
-      <p className="mt-2 text-sm text-slate-600">
-        Mã đơn hàng: <b className="text-blue-700">#{orderCode}</b>
-      </p>
+      {orderCode && (
+        <p className="mt-2 text-sm text-slate-600">
+          Mã đơn hàng: <b className="text-blue-700">#{orderCode}</b>
+        </p>
+      )}
       <ul className="mt-4">
         {items.map(
           ({

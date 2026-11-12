@@ -1,4 +1,4 @@
-import { CartItem } from "../../../components/context/ShopContext";
+import { CartItem } from "../../context/ShopContext";
 
 export const PROMO_CODE = "JUNIOR10";
 export const PROMO_RATE = 0.1;

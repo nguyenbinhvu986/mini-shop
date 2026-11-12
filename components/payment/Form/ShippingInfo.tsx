@@ -1,6 +1,9 @@
 import { Truck } from "lucide-react";
 import { CheckoutSectionProps, LOCATIONS } from "./CheckoutSchema";
-import { Field, inputClass, Section } from "./FormParts";
+import { Section } from "./FormSection";
+import { Field } from "./FormField";
+const inputClass =
+  "w-full rounded-xl bg-indigo-50 px-4 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-blue-600 disabled:opacity-60";
 
 export default function ShippingInfoSection({
   values,

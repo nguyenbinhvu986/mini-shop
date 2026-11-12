@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CartItem, useShop } from "../../../components/context/ShopContext";
+import { CartItem, useShop } from "../../context/ShopContext";
 import { MIN_MESSAGE, stockMessage } from "../cart/CartHelpers";
 
 export function useCartQuantity() {
